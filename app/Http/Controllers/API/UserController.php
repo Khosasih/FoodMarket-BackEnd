@@ -73,7 +73,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
-    public function register(RegisterRequest $request)
+    public function register(Request $request)
     {
         try {
 
