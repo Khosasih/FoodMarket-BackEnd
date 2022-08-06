@@ -34,19 +34,31 @@ class UserController extends Controller
                 ],
                 [
                     'email' => 'example@gmail.com',
-                    'password.min' => 'Harus diisi dengan 8 karakter'
+                    'email.required' => 'email tidak boleh kosong',
+                    'password.min' => 'harus diisi dengan 8 karakter',
+                    'password.required' => 'password tidak boleh kosong'
                 ]
             );
-            if ($validator->fails()) {
-                return response()->json($validator->errors(), 400);
+            if ($validator->fails()){
+                return response()->json([
+                    'message' => $validator->errors()
+                ],400);
             }
+            // if ($validator->fails()) {
+            //     return response()->json($validator->errors(), 400);
+            // }
 
             //Mengecek Credentials (login)
             $credentials = request(['email', 'password']);
-            if (!Auth::attempt($credentials)) {
-                return ResponseFormatter::error([
-                    'message' => 'Unauthorized'
-                ], 'Authentication Failed', 500);
+            // if (!Auth::attempt($credentials)) {
+            //     return ResponseFormatter::error([
+            //         'message' => 'Akun tidak terdaftar!'
+            //     ], 'Authentication Failed', 500);
+            // }
+            if (!Auth::attempt($credentials)){
+                return response()->json([
+                    'message' => 'Akun tidak terdaftar!'
+                ],500);
             }
 
             //Jika akun tidak sesuai berikan error
@@ -96,6 +108,7 @@ class UserController extends Controller
                     'email.unique' => 'email sudah digunakan',
                     'password.required' => 'password tidak boleh kosong',
                     'password.min' => 'password minimal 8 Karakter',
+                    'password_confirmation.required' => 'password confirmation tidak boleh kosong',
                     'password_confirmation.same' => 'password confirmation tidak sama',
                     'password_confirmation.min' => 'password minimal 8 Karakter',
                     'phoneNumber.required' => 'Nomor Telepon tidak boleh kosong',
