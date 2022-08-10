@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FoodRequest;
 use App\Models\Food;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
 
 class FoodController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -91,6 +95,22 @@ class FoodController extends Controller
         }
         $food->update($data);
         return redirect()->route('food.index');
+
+        //updatetan food image
+        
+        // $data = $request->all();
+        // $data['slug'] = Str::slug($request->name);
+
+        // if($request->hasFile('picturePath'))
+        // { $request->validate([
+        //     'picturePath' => 'required|image|mimes:png,jpg,jpeg,gif,svg|max:100'
+        // ]);
+        // $data['picturePath'] = $request->file('picturePath')->store('assets/food', 'public');
+        // if (Storage::exists('assets/food' . $food->picturePath)) {
+        //     Storage::disk('local')->delete('assets/food' . $food->picturePath);
+        // }
+        // $food->update($data);
+        // return redirect()->route('food.index');
     }
 
     /**
