@@ -6,12 +6,11 @@ use App\Http\Requests\FoodRequest;
 use App\Models\Food;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 
 class FoodController extends Controller
 {
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -22,9 +21,9 @@ class FoodController extends Controller
         $pagination = 2;
         $food = Food::paginate($pagination);
 
-        return view('food.index',[
+        return view('food.index', [
             'food' => $food
-        ])->with('i',($request->input('page',1) - 1) * $pagination);
+        ])->with('i', ($request->input('page', 1) - 1) * $pagination);
     }
 
     /**
@@ -74,7 +73,7 @@ class FoodController extends Controller
      */
     public function edit(Food $food)
     {
-        return view('food.edit',[
+        return view('food.edit', [
             'item' => $food
         ]);
     }
@@ -89,28 +88,12 @@ class FoodController extends Controller
     public function update(Request $request, Food $food)
     {
         $data = $request->all();
-        if($request->file('picturePath'))
-        {
-            $data['picturePath'] = $request->file('picturePath')->store('assets/food', 'public');
+        if ($request->file('picturePath')) {
+            Storage::disk('local')->delete('public/'.$food->picturePath);
         }
+        $data['picturePath'] = $request->file('picturePath')->store('assets/food', 'public');
         $food->update($data);
         return redirect()->route('food.index');
-
-        //updatetan food image
-        
-        // $data = $request->all();
-        // $data['slug'] = Str::slug($request->name);
-
-        // if($request->hasFile('picturePath'))
-        // { $request->validate([
-        //     'picturePath' => 'required|image|mimes:png,jpg,jpeg,gif,svg|max:100'
-        // ]);
-        // $data['picturePath'] = $request->file('picturePath')->store('assets/food', 'public');
-        // if (Storage::exists('assets/food' . $food->picturePath)) {
-        //     Storage::disk('local')->delete('assets/food' . $food->picturePath);
-        // }
-        // $food->update($data);
-        // return redirect()->route('food.index');
     }
 
     /**

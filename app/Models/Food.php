@@ -38,7 +38,7 @@ class Food extends Model
         return $toArray;
     }
 
-    public function getPicturePathAttribute()
+    public function getPictureFileAttribute()
     {
         return url('') . Storage::url($this->attributes['picturePath']);
     }
