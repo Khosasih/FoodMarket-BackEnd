@@ -44,25 +44,25 @@ class FoodController extends Controller
      */
     public function store(FoodRequest $request)
     {
-        // $data = $request->all();
+        $data = $request->all();
 
-        // $data['picturePath'] = $request->file('picturePath')->store('assets/food', 'public');
+        $data['picturePath'] = $request->file('picturePath')->store('assets/food', 'public');
 
-        // Food::create($data);
+        Food::create($data);
 
-        // return redirect()->route('food.index');
+        return redirect()->route('food.index');
 
         //Edisi baru
-        $data= $request->all();
-        if ($request->hasFile('picturePath')) {
-            $file = $request->file('picturePath');
-            $extention = $file->getClientOriginalExtension();
-            $filename = time(). '.' .$extention;
-            $file->store('assets/food', 'public');
-            $data['picturePath']->picturePath = $filename;
-        }
-        Food::create($data);
-        return redirect()->route('food.index');
+        // $data= $request->all();
+        // if ($request->hasFile('picturePath')) {
+        //     $file = $request->file('picturePath');
+        //     $extention = $file->getClientOriginalExtension();
+        //     $filename = time(). '.' .$extention;
+        //     $file->store('assets/food', 'public');
+        //     $data['picturePath']->picturePath = $filename;
+        // }
+        // Food::create($data);
+        // return redirect()->route('food.index');
 
     }
 
