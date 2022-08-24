@@ -6,12 +6,11 @@ use App\Http\Requests\FoodRequest;
 use App\Models\Food;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 
 class FoodController extends Controller
 {
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -22,9 +21,9 @@ class FoodController extends Controller
         $pagination = 2;
         $food = Food::paginate($pagination);
 
-        return view('food.index',[
+        return view('food.index', [
             'food' => $food
-        ])->with('i',($request->input('page',1) - 1) * $pagination);
+        ])->with('i', ($request->input('page', 1) - 1) * $pagination);
     }
 
     /**
@@ -45,13 +44,26 @@ class FoodController extends Controller
      */
     public function store(FoodRequest $request)
     {
-        $data = $request->all();
+        // $data = $request->all();
 
-        $data['picturePath'] = $request->file('picturePath')->store('assets/food', 'public');
+        // $data['picturePath'] = $request->file('picturePath')->store('assets/food', 'public');
 
+        // Food::create($data);
+
+        // return redirect()->route('food.index');
+
+        //Edisi baru
+        $data= $request->all();
+        if ($request->hasFile('picturePath')) {
+            $file = $request->file('picturePath');
+            $extention = $file->getClientOriginalExtension();
+            $filename = time(). '.' .$extention;
+            $file->store('assets/food', 'public');
+            $data['picturePath']->picturePath = $filename;
+        }
         Food::create($data);
-
         return redirect()->route('food.index');
+
     }
 
     /**
@@ -74,7 +86,7 @@ class FoodController extends Controller
      */
     public function edit(Food $food)
     {
-        return view('food.edit',[
+        return view('food.edit', [
             'item' => $food
         ]);
     }
@@ -86,31 +98,15 @@ class FoodController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(FoodRequest $request, Food $food)
+    public function update(Request $request, Food $food)
     {
         $data = $request->all();
-        if($request->file('picturePath'))
-        {
+        if ($request->file('picturePath')) {
             $data['picturePath'] = $request->file('picturePath')->store('assets/food', 'public');
+            Storage::disk('local')->delete('public/'.$food->picturePath);
         }
         $food->update($data);
         return redirect()->route('food.index');
-
-        //updatetan food image
-        
-        // $data = $request->all();
-        // $data['slug'] = Str::slug($request->name);
-
-        // if($request->hasFile('picturePath'))
-        // { $request->validate([
-        //     'picturePath' => 'required|image|mimes:png,jpg,jpeg,gif,svg|max:100'
-        // ]);
-        // $data['picturePath'] = $request->file('picturePath')->store('assets/food', 'public');
-        // if (Storage::exists('assets/food' . $food->picturePath)) {
-        //     Storage::disk('local')->delete('assets/food' . $food->picturePath);
-        // }
-        // $food->update($data);
-        // return redirect()->route('food.index');
     }
 
     /**

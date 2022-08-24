@@ -19,6 +19,7 @@
                             <th class="border px-6 py-4">ID</th>
                             <th class="border px-6 py-4">Name</th>
                             <th class="boder px-6 py-4">Price</th>
+                            <th class="border px-6 py-4">Image</th>
                             <th class="border px-6 py-4">Rate</th>
                             <th class="border px-6 py-4">Types</th>
                             <th class="border px-6 py-4">Action</th>
@@ -30,6 +31,9 @@
                             <td class="border px-6 py-4">{{ ++$i }}</td>
                             <td class="border px-6 py-4">{{ $item->name }}</td>
                             <td class="border px-6 py-4">{{ number_format($item->price) }}</td>
+                            <td class="border px-6 py-4">
+                                <img src= "{{ asset('storage/' . $item->picturePath) }}" alt="Image" width="70px" height="70px"/>
+                            </td>
                             <td class="border px-6 py-4">{{ $item->rate }}</td>
                             <td class="border px-6 py-4">{{ $item->types }}</td>
                             <td class="border px-6 py-4 text-center">
