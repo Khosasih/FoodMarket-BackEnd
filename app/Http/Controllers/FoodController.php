@@ -121,3 +121,4 @@ class FoodController extends Controller
         return redirect()->route('food.index');
     }
 }
+
