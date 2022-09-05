@@ -19,7 +19,7 @@ class Food extends Model
     public function toArray()
     {
         $toArray = parent::toArray();
-        $toArray['picturePath'] = $this->picturePath;
+        $toArray['picturePath'] = $this->pictureFile;
         return $toArray;
     }
 
@@ -34,7 +34,7 @@ class Food extends Model
             ->getPreciseTimestamp(3);
     }
 
-    public function getPicturePathAttribute()
+    public function getPictureFileAttribute()
     {
         return url('') . Storage::url($this->attributes['picturePath']);
     }
