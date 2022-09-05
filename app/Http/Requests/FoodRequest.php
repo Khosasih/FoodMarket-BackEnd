@@ -28,7 +28,7 @@ class FoodRequest extends FormRequest
             'description' => 'required',
             'ingredients' => 'required',
             'price' => 'required|integer',
-            'rate' => 'required|numeric',
+            'rate' => 'required|numeric|max:5',
             'types' => '',
             'picturePath' => 'required|image'
         ];

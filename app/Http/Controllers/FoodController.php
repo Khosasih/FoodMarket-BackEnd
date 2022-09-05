@@ -57,9 +57,20 @@ class FoodController extends Controller
         // if ($request->hasFile('picturePath')) {
         //     $file = $request->file('picturePath');
         //     $extention = $file->getClientOriginalExtension();
-        //     $filename = time(). '.' .$extention;
+        //     $filename = time(). '.' .random_int(10000, 99999). '.' .$extention;
         //     $file->store('assets/food', 'public');
         //     $data['picturePath']->picturePath = $filename;
+        // }
+        // Food::create($data);
+        // return redirect()->route('food.index');
+
+        //DARI MAS ANDRI MDI
+        // $data= $request->all();
+        // if ($request->hasFile('picturePath')) {
+        //     $file = $request->file('picturePath');
+        //     $fileName = time().''. random_int(10000, 99999) .'.'.$file->getClientOriginalExtension();
+        //     $uploaded = 'public/assets/food';
+        //     $file->store($fileName,$uploaded);
         // }
         // Food::create($data);
         // return redirect()->route('food.index');
@@ -100,9 +111,11 @@ class FoodController extends Controller
      */
     public function update(Request $request, Food $food)
     {
+        // dd($food->picturePath);
         $data = $request->all();
+        $data['picturePath'] = $request->file('picturePath')->store('assets/food', 'public');
+        // return $request->file('picturePath')->store('assets/food', 'public');
         if ($request->file('picturePath')) {
-            $data['picturePath'] = $request->file('picturePath')->store('assets/food', 'public');
             Storage::disk('local')->delete('public/'.$food->picturePath);
         }
         $food->update($data);

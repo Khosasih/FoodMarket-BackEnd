@@ -34,7 +34,7 @@ class Food extends Model
     public function toArray()
     {
         $toArray = parent::toArray();
-        $toArray['picturePath'] = $this->picturePath;
+        $toArray['picturePath'] = $this->pictureFile;
         return $toArray;
     }
 
