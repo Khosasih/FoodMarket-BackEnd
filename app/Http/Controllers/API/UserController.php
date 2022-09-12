@@ -57,7 +57,9 @@ class UserController extends Controller
             // }
             if (!Auth::attempt($credentials)){
                 return response()->json([
-                    'message' => 'Akun tidak terdaftar!'
+                    'message' => [
+                        "Akun tidak terdaftar"
+                    ]
                 ],500);
             }
 
