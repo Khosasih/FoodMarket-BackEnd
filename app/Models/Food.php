@@ -16,6 +16,16 @@ class Food extends Model
         'picturePath', 'name', 'description', 'ingredients', 'price', 'rate', 'types'
     ];
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'id', 'category_id');
+    }
+
+    // public function categories()
+    // {
+    //     return $this->hasOne(Category::class, 'id', 'category_id');
+    // }
+
     public function toArray()
     {
         $toArray = parent::toArray();

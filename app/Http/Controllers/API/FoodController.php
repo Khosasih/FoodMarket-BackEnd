@@ -22,9 +22,10 @@ class FoodController extends Controller
 
         $rate_from = $request->input('rate_from');
         $rate_to = $request->input('rate_to');
+        
 
         if ($id) {
-            $food = Food::find($id);
+            $food = Food::with(['category'])->find($id);
 
             if ($food)
                 return ResponseFormatter::success(
