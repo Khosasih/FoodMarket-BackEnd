@@ -34,7 +34,7 @@ class Food extends Model
             ->getPreciseTimestamp(3);
     }
 
-    public function getPicturePathAttribute()
+    public function getPictureFileAttribute()
     {
         return url('') . Storage::url($this->attributes['picturePath']);
     }
