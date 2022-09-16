@@ -16,7 +16,7 @@ class Food extends Model
     protected $fillable = [
         'picturePath', 'name', 'description', 'ingredients', 'price', 'rate', 'types'
     ];
-
+//tets
     public function toArray()
     {
         $toArray = parent::toArray();
