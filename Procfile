@@ -1,1 +1,1 @@
-web: bundle exec rails server -p $PORT
+web: node dist/server.js
