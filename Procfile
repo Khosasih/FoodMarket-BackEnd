@@ -1,1 +1,1 @@
-web: node dist/server.js
+web: vendor/bin/heroku-php-apache2
