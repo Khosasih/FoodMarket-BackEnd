@@ -16,6 +16,11 @@ class Food extends Model
     protected $fillable = [
         'picturePath', 'name', 'description', 'ingredients', 'price', 'rate', 'types'
     ];
+
+    public function types()
+    {
+        return $this->belongsTo(Types::class, 'types_id', 'id');
+    }
     
     public function toArray()
     {

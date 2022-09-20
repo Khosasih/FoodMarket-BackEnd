@@ -104,7 +104,7 @@
                                 for="grid-last-name">
                                 Types
                             </label>
-                            <input value="{{ old('types') }}" name="types"
+                            <input value="{{ old('types_id') }}" name="types_id"
                                 class="appearance-none block w-full bg-gray-200 text-gray-700 border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 id="grid-last-name" type="text" placeholder="types">
                             <p class="text-gray-600 text-xs italic">contoh: recommended,popular,new_food</p>
