@@ -16,6 +16,7 @@ class Food extends Model
     protected $fillable = [
         'picturePath', 'name', 'description', 'ingredients', 'price', 'rate', 'types'
     ];
+<<<<<<< HEAD
 
     public function category()
     {
@@ -27,6 +28,9 @@ class Food extends Model
     //     return $this->hasOne(Category::class, 'id', 'category_id');
     // }
 
+=======
+    
+>>>>>>> 42d7c00d686f703684ddca4c17abe17a241dee64
     public function toArray()
     {
         $toArray = parent::toArray();

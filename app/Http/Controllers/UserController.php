@@ -83,6 +83,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //
     public function update(UserRequest $request,User $user)
     {
         $data = $request->all();
