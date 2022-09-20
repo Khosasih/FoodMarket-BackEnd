@@ -14,23 +14,14 @@ class Food extends Model
     // , SoftDeletes; untuk hapus tapi DB tidak tgerhapus
 
     protected $fillable = [
-        'picturePath', 'name', 'description', 'ingredients', 'price', 'rate', 'types'
+        'picturePath', 'name', 'description', 'ingredients', 'price', 'rate', 'types_id'
     ];
-<<<<<<< HEAD
 
-    public function category()
+    public function types()
     {
-        return $this->belongsTo(Category::class, 'id', 'category_id');
+        return $this->belongsTo(Types::class, 'types_id', 'id');
     }
 
-    // public function categories()
-    // {
-    //     return $this->hasOne(Category::class, 'id', 'category_id');
-    // }
-
-=======
-    
->>>>>>> 42d7c00d686f703684ddca4c17abe17a241dee64
     public function toArray()
     {
         $toArray = parent::toArray();
