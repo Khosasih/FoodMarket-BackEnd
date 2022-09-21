@@ -113,9 +113,9 @@ class FoodController extends Controller
     {
         // dd($food->picturePath);
         $data = $request->all();
-        $data['picturePath'] = $request->file('picturePath')->store('assets/food', 'public');
         // return $request->file('picturePath')->store('assets/food', 'public');
         if ($request->file('picturePath')) {
+            $data['picturePath'] = $request->file('picturePath')->store('assets/food', 'public');
             Storage::disk('local')->delete('public/'.$food->picturePath);
         }
         $food->update($data);
@@ -134,4 +134,4 @@ class FoodController extends Controller
         return redirect()->route('food.index');
     }
 }
-//kok
+
