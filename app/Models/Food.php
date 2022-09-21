@@ -14,7 +14,7 @@ class Food extends Model
     // , SoftDeletes; untuk hapus tapi DB tidak tgerhapus
 
     protected $fillable = [
-        'picturePath', 'name', 'description', 'ingredients', 'price', 'rate', 'types'
+        'picturePath', 'name', 'description', 'ingredients', 'price', 'rate', 'types_id'
     ];
 
     public function types()
