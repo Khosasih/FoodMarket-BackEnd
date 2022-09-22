@@ -20,18 +20,14 @@ class TransactionController extends Controller
         $food_id = $request->input('food_id');
         $status = $request->input('status');
 
-        if ($id) 
-        {
+        if ($id) {
             $transaction = Transaction::with(['food', 'user'])->find($id);
-            if ($transaction) 
-            {
+            if ($transaction) {
                 return ResponseFormatter::success(
                     $transaction,
                     'Data Transaksi Berhasil diambil'
                 );
-            }
-            else
-            {
+            } else {
                 return ResponseFormatter::error(
                     null,
                     'Data Transaksi tidak ada',
@@ -41,17 +37,15 @@ class TransactionController extends Controller
         }
 
         $transaction = Transaction::with(['food', 'user'])
-                        ->where('user_id', Auth::user()->id);
+            ->where('user_id', Auth::user()->id);
 
-        if ($food_id) 
-        {
+        if ($food_id) {
             $transaction->where('food_id', $food_id);
         }
-        if ($status) 
-        {
+        if ($status) {
             $transaction->where('status', $status);
         }
-        
+
         return ResponseFormatter::success(
             $transaction->paginate($limit),
             'Data Transaksi berhasil diambil'
@@ -67,23 +61,26 @@ class TransactionController extends Controller
 
     public function checkout(Request $request)
     {
+        
         $request->validate([
-            'food_id'=>'required|exists:food,id',
-            'user_id'=>'required|exists:users,id',
-            'quantity'=>'required',
-            'total'=>'required',
-            'status'=>'required',
+            'food_id' => 'required|exists:food,id',
+            'user_id' => 'required|exists:users,id',
+            'quantity' => 'required',
+            'total' => 'required',
+            'status' => 'required',
         ]);
 
         $transaction = Transaction::create([
-            'food_id'=> $request->food_id,
-            'user_id'=> $request->user_id,
-            'quantity'=> $request->quantity,
-            'total'=> $request->total,
-            'status'=> $request->status,
+            'food_id' => $request->food_id,
+            'user_id' => $request->user_id,
+            'quantity' => $request->quantity,
+            'total' => $request->total,
+            'status' => $request->status,
             'payment_url' => ''
         ]);
         //Konfigurasi Midtrans
+        // $data = Config::$serverKey = config('services.midtrans.serverKey');
+        // dd($data);
         Config::$serverKey = config('service.midtrans.serverKey');
         Config::$isProduction = config('service.midtrans.isProduction');
         Config::$isSanitized = config('service.midtrans.isSanitized');
@@ -93,8 +90,8 @@ class TransactionController extends Controller
         //Membuat transaction Midtrans
         $midtrans = array(
             'transaction_details' => array(
-                'order_id'=> $transaction->id,
-                'gross_amount'=> (int)$transaction->total,
+                'order_id' => $transaction->id,
+                'gross_amount' => (int)$transaction->total,
             ),
             'customer_details' => array(
                 'first_name' => $transaction->user->name,
@@ -112,10 +109,8 @@ class TransactionController extends Controller
 
             //Mengambilkan Data ke API
             return ResponseFormatter::success($transaction, 'Transaksi Berhasil');
-        } 
-        catch (Exception $e){
-            return ResponseFormatter::error($e->getMessage(),'Transaksi Gagal');
+        } catch (Exception $e) {
+            return ResponseFormatter::error($e->getMessage(), 'Transaksi Gagal');
         }
-
     }
 }
