@@ -8,71 +8,107 @@ use Illuminate\Http\Request;
 use Midtrans\Config;
 use Midtrans\Notification;
 
+
 class MidtransController extends Controller
 {
-   public function callback(Request $request)
-   {
-    //Set Konfigurasi Midtrans
-    Config::$serverKey = config('service.midtrans.serverKey');
-    Config::$isProduction = config('service.midtrans.isProduction');
-    Config::$isSanitized = config('service.midtrans.isSanitized');
-    Config::$is3ds = config('service.midtrans.is3ds');
-    //Buat Intance midtrans notification
-    $notification = new Notification();
-    //Assign ke variable untuk memudahkan kodingan
-    $status = $notification->transaction_status;
-    $type = $notification->payment_type;
-    $fraud = $notification->fraud_status;
-    $order_id = $notification->order_id;
-    //Cari Transaksi berdasarkan ID
-    $transaction = Transaction::findOrFail($order_id);
-    //Handle Notifikasi status midtrans
-    if ($status == 'capture') 
-        {
-            if ($type == 'credit_card') 
-            {
-                if ($fraud == 'challenge') 
-                {
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function callback(Request $request)
+    {
+        //Set Konfigurasi Midtrans
+        Config::$serverKey = config('services.midtrans.serverKey');
+        Config::$isProduction = config('services.midtrans.isProduction');
+        Config::$isSanitized = config('services.midtrans.isSanitized');
+        Config::$is3ds = config('services.midtrans.is3ds');
+        //Buat Intance midtrans notification
+        $notification = new Notification();
+        //Assign ke variable untuk memudahkan kodingan
+        $status = $notification->transaction_status;
+        $type = $notification->payment_type;
+        $fraud = $notification->fraud_status;
+        $order_id = $notification->order_id;
+        //Cari Transaksi berdasarkan ID
+        $transaction = Transaction::findOrFail($order_id);
+        //Handle Notifikasi status midtrans
+        if ($status == 'capture') {
+            if ($type == 'credit_card') {
+                if ($fraud == 'challenge') {
                     $transaction->status = 'PENDING';
-                }
-                else
-                {
+                } else {
                     $transaction->status = 'SUCCESS';
                 }
             }
-        }
-        else if($status == 'settlement')
-        {
+        } else if ($status == 'settlement') {
             $transaction->status = 'SUCCESS';
-        }
-        else if($status == 'pending')
-        {
+        } else if ($status == 'pending') {
             $transaction->status = 'PENDING';
-        }
-        else if($status == 'deny')
-        {
+        } else if ($status == 'deny') {
             $transaction->status = 'CANCELLED';
-        }
-        else if($status == 'expire')
-        {
+        } else if ($status == 'expire') {
             $transaction->status = 'EXPIRED';
+        } else if ($status == 'cancle') {
+            $transaction->$status = 'CANCELLED';
         }
         //Simpan Transaksi
         $transaction->save();
-   }
+        if ($transaction) {
+            if ($status == 'capture' && $fraud == 'accept') {
+                //
+            } else if ($status == 'settlement') {
+                //
+            } else if ($status == 'success') {
+                //
+            } else if ($status == 'capture' && $fraud == 'challenge') {
+                return response()->json([
+                    'meta' => [
+                        'code' => 200,
+                        'message' => 'Midtrans Payment Challenge'
+                    ]
+                ]);
+            } else {
+                return response()->json([
+                    'meta' => [
+                        'code' => 200,
+                        'message' => 'Midtrans Payment not Settlement'
+                    ]
+                ]);
+            }
 
-   public function success()
-   {
-       return view('midtrans.success');
-   }
+            return response()->json([
+                'meta' => [
+                    'code' => 200,
+                    'message' => 'Midtrans Notification Success'
+                ]
+            ]);
+        }
+    }
 
-   public function unfinish()
-   {
-       return view('midtrans.unfinish');
-   }
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function success(Request $request)
+    {
+        return view('midtrans.success');
+    }
 
-   public function error()
-   {
-       return view('midtrans.error');
-   }
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function unfinish(Request $request)
+    {
+        return view('midtrans.unfinish');
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function error(Request $request)
+    {
+        return view('midtrans.error');
+    }
 }
