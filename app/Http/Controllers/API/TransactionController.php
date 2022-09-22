@@ -79,7 +79,7 @@ class TransactionController extends Controller
             'food_id'=> $request->food_id,
             'user_id'=> $request->user_id,
             'quantity'=> $request->quantity,
-            'total'=> $request->quantity,
+            'total'=> $request->total,
             'status'=> $request->status,
             'payment_url' => ''
         ]);
@@ -91,18 +91,18 @@ class TransactionController extends Controller
         //Mengambil transaction yang dibuat
         $transaction = Transaction::with(['food', 'user'])->find($transaction->id);
         //Membuat transaction Midtrans
-        $midtrans = [
-            'transaction_details' => [
+        $midtrans = array(
+            'transaction_details' => array(
                 'order_id'=> $transaction->id,
                 'gross_amount'=> (int)$transaction->total,
-            ],
-            'customer_details' => [
+            ),
+            'customer_details' => array(
                 'first_name' => $transaction->user->name,
                 'email' => $transaction->user->email,
-            ],
-            'enable_payments' => ['gopay', 'bank_transfer'],
-            'vtweb' => []
-        ];
+            ),
+            'enable_payments' => array('gopay', 'bank_transfer'),
+            'vtweb' => array()
+        );
 
         try {
             //Ambil halaman payment midtrans
