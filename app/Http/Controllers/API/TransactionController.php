@@ -85,10 +85,10 @@ class TransactionController extends Controller
         //Konfigurasi Midtrans
         // $data = Config::$serverKey = config('services.midtrans.serverKey');
         // dd($data);
-        Config::$serverKey = config('service.midtrans.serverKey');
-        Config::$isProduction = config('service.midtrans.isProduction');
-        Config::$isSanitized = config('service.midtrans.isSanitized');
-        Config::$is3ds = config('service.midtrans.is3ds');
+        Config::$serverKey = config('services.midtrans.serverKey');
+        Config::$isProduction = config('services.midtrans.isProduction');
+        Config::$isSanitized = config('services.midtrans.isSanitized');
+        Config::$is3ds = config('services.midtrans.is3ds');
         //Mengambil transaction yang dibuat
         $transaction = Transaction::with(['food', 'user'])->find($transaction->id);
         //Membuat transaction Midtrans
