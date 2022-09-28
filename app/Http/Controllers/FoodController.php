@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\FoodRequest;
 use App\Models\Food;
+use App\Models\Types;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -33,7 +34,8 @@ class FoodController extends Controller
      */
     public function create()
     {
-        return view('food.create');
+        $types = Types::all();
+        return view('food.create', compact('types'));
     }
 
     /**
@@ -97,7 +99,8 @@ class FoodController extends Controller
      */
     public function edit(Food $food)
     {
-        return view('food.edit', [
+        $types = Types::all();
+        return view('food.edit', compact('types'), [
             'item' => $food
         ]);
     }

@@ -33,4 +33,11 @@ class FoodRequest extends FormRequest
             'picturePath' => 'required|image'
         ];
     }
+    public function messages()
+    {
+        return 
+        [
+            'types_id.required' => 'Silahkan Pilih Type'
+        ];
+    }
 }
