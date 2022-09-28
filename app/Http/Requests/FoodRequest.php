@@ -29,7 +29,7 @@ class FoodRequest extends FormRequest
             'ingredients' => 'required',
             'price' => 'required|integer',
             'rate' => 'required|numeric|max:5',
-            'types_id' => 'required',
+            'types_id' => 'required|in:new food, popular, recommended',
             'picturePath' => 'required|image'
         ];
     }
