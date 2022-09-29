@@ -21,7 +21,7 @@ class Food extends Model
     {
         return $this->belongsTo(Types::class, 'types_id', 'id');
     }
-
+    
     public function toArray()
     {
         $toArray = parent::toArray();

@@ -113,10 +113,12 @@
                         for="grid-last-name">
                         Types
                     </label>
-                    <input value="{{ old('types') ?? $item->types }}" name="types"
-                        class="appearance-none block w-full bg-gray-200 text-gray-700 border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                        id="grid-last-name" type="text" placeholder="types">
-                    <p class="text-gray-600 text-xs italic">contoh: recommended,popular,new food</p>
+                    <select name="types_id" class="appearance-none block w-full bg-gray-200 text-gray-700 border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" data-style="select-with-transition">
+                        @foreach ($types as $data)
+                            <option value="{{ $data->id }}"{{ $item->types_id == $data->id ? 'selected' : null }}>{{ $data->name }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="flex flex-wrap -mx-3 mb-6">

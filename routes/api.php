@@ -27,7 +27,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('checkout', [TransactionController::class, 'checkout']);
 
     Route::get('transaction', [TransactionController::class, 'all']);
-    Route::post('trasaction/{id}', [TransactionController::class, 'update']);
+    Route::post('transaction/{id}', [TransactionController::class, 'update']);
 });
 
 Route::post('login', [UserController::class, 'login']);
@@ -35,4 +35,4 @@ Route::post('register', [UserController::class, 'register']);
 
 Route::get('food', [FoodController::class, 'all']);
 
-Route::post('callback', [MidtransController::class, 'callback']);
+Route::post('midtrans/callback', [MidtransController::class, 'callback']);

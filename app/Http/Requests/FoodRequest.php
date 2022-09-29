@@ -29,8 +29,15 @@ class FoodRequest extends FormRequest
             'ingredients' => 'required',
             'price' => 'required|integer',
             'rate' => 'required|numeric|max:5',
-            'types' => '',
+            'types_id' => 'required|in:new food, popular, recommended',
             'picturePath' => 'required|image'
+        ];
+    }
+    public function messages()
+    {
+        return 
+        [
+            'types_id.required' => 'Silahkan Pilih Type'
         ];
     }
 }

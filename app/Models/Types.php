@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Types extends Model
 {
-    protected $filable = [
+    use HasFactory;
+    protected $fillable = [
         'name'
     ];
-    use HasFactory;
 
 }
