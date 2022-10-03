@@ -136,6 +136,7 @@ class FoodController extends Controller
     {
         $food->delete();
         return redirect()->route('food.index');
+        
     }
 }
 
