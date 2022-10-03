@@ -25,7 +25,7 @@
                         <tr>
                             <td class="border px-6 py-4">{{ ++$i }}</td>
                             {{-- {{-- <td class="border px-6 py-4">{{ $item->food->name }}</td> --}}
-                            <td class="border px-6 py-4">{{ $item->user->name }}</td> --}}
+                            <td class="border px-6 py-4">{{ $item->user->name }}</td>
                             <td class="border px-6 py-4">{{ $item->quantity }}</td>
                             <td class="border px-6 py-4">{{ $item->total }}</td>
                             <td class="border px-6 py-4">{{ $item->status }}</td>
