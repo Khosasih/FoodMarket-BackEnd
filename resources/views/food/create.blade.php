@@ -107,7 +107,7 @@
                     <select name="types_id" class="appearance-none block w-full bg-gray-200 text-gray-700 border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" data-style="select-with-transition">
                         <option selected value="">choose</option>
                         @foreach ($types as $data)
-                            <option value="{{ $data->id }}"{{ old('types_id') == $data->id ? 'selected' : null }}>{{ $data->name }}
+                            <option value="{{ $data->id }}">{{ $data->name }}
                             </option>
                         @endforeach
                     </select>
