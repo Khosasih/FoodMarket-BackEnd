@@ -42,7 +42,7 @@
                                 <a href="{{ route('food.edit', $item->id) }}" class="inline-block bg-orange-500 hover:bg-orange-700 px-6 py-2 text-white font-bold rounded">
                                     Edit
                                 </a>
-                                <form action="{{ route('food.destroy', $item->id) }}" method="POST" class="inline-block">
+                                <form action="{{ route('food.destroy', $item->id) }}" method="POST" class="inline-block" onclick="return confirm('Are you sure?')">
                                     {!! method_field('delete') . csrf_field() !!}
                                 <button type="submit" class="bg-red-500 hover:bg-red-700 px-6 py-2 text-white font-bold rounded">
                                     Delete

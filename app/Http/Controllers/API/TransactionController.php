@@ -83,8 +83,8 @@ class TransactionController extends Controller
             'payment_url' => ''
         ]);
         //Konfigurasi Midtrans
-        $data = Config::$serverKey = config('services.midtrans.serverKey');
-        dd($data);
+        // $data = Config::$serverKey = config('services.midtrans.serverKey');
+        // dd($data);
         Config::$serverKey = config('services.midtrans.serverKey');
         Config::$isProduction = config('services.midtrans.isProduction');
         Config::$isSanitized = config('services.midtrans.isSanitized');
