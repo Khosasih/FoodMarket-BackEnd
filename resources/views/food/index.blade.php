@@ -1,5 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Icons"
+      rel="stylesheet">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Food') }}
         </h2>
@@ -8,8 +10,8 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="mb-10">
-                <a href="{{ route('food.create') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                + Create Food
+                <a href="{{ route('food.create') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                <i class="material-icons">add</i> Create Food
                 </a>
             </div>
             <div class="bg-white">
