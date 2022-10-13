@@ -18,7 +18,7 @@
                         <tr>
                             <th class="border px-6 py-4">ID</th>
                             <th class="border px-6 py-4">Name</th>
-                            <th class="boder px-6 py-4">Email</th>
+                            <th class="border px-6 py-4">Email</th>
                             <th class="border px-6 py-4">Roles</th>
                             <th class="border px-6 py-4">Action</th>
                         </tr>
