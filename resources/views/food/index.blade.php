@@ -20,7 +20,7 @@
                         <tr>
                             <th class="border px-6 py-4">ID</th>
                             <th class="border px-6 py-4">Name</th>
-                            <th class="boder px-6 py-4">Price</th>
+                            <th class="border px-6 py-4">Price</th>
                             <th class="border px-6 py-4">Image</th>
                             <th class="border px-6 py-4">Rate</th>
                             <th class="border px-6 py-4">Types</th>
