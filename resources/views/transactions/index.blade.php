@@ -13,7 +13,7 @@
                         <tr>
                             <th class="border px-6 py-4">ID</th>
                             <th class="border px-6 py-4">Food</th>
-                            <th class="boder px-6 py-4">User</th>
+                            <th class="border px-6 py-4">User</th>
                             <th class="border px-6 py-4">Quantity</th>
                             <th class="border px-6 py-4">Total</th>
                             <th class="border px-6 py-4">Status</th>
@@ -24,8 +24,8 @@
                         @forelse ($transactions as $item)
                         <tr>
                             <td class="border px-6 py-4">{{ ++$i }}</td>
-                            {{-- <td class="border px-6 py-4">{{ $item->food->name }}</td>
-                            <td class="border px-6 py-4">{{ $item->user->name }}</td> --}}
+                            <td class="border px-6 py-4">{{ $item->food->name }}</td>
+                            <td class="border px-6 py-4">{{ $item->user->name }}</td>
                             <td class="border px-6 py-4">{{ $item->quantity }}</td>
                             <td class="border px-6 py-4">{{ $item->total }}</td>
                             <td class="border px-6 py-4">{{ $item->status }}</td>
