@@ -31,12 +31,12 @@
                             <td class="border px-6 py-4">{{ $item->status }}</td>
                             <td class="border px-6 py-4 text-center">
                                 <a href="{{ route('transactions.show', $item->id) }}" class="inline-block bg-orange-500 hover:bg-orange-700 px-6 py-2 text-white font-bold rounded">
-                                    View
+                                    <i class="fa-solid fa-file"></i> View
                                 </a>
                                 <form action="{{ route('transactions.destroy', $item->id) }}" method="POST" class="inline-block">
                                     {!! method_field('delete') . csrf_field() !!}
                                 <button type="submit" class="bg-red-500 hover:bg-red-700 px-6 py-2 text-white font-bold rounded">
-                                    Delete
+                                    <i class="fa-solid fa-trash-can"></i> Delete
                                 </button>
                                 </form>
                             </td>
